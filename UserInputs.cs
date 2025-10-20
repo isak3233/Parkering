@@ -30,10 +30,7 @@ namespace Parkering
             }
             
         }
-        static private void RemoveOptionFromConsole()
-        {
-            Console.SetCursorPosition(0, Console.CursorTop);
-        }
+      
         static public string GetLicensePlate(ParkingHouse parkingHouse)
         {
             while (true)
@@ -190,6 +187,10 @@ namespace Parkering
         static private void Error(string input, string errorMessage)
         {
             Console.WriteLine($"{input} {errorMessage}");
+        }
+        static private void RemoveOptionFromConsole()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop);
         }
 
     }

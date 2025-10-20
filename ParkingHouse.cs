@@ -16,24 +16,23 @@ namespace Parkering
             {
                 ParkingSpots.Add(new ParkingSpot());
             }
-            Bus bus1 = new Bus("BBB222", Colors.Red, 55);
-            Bus bus2 = new Bus("SSS333", Colors.Green, 44);
-            Car car1 = new Car("ABC123", Colors.Red, false);
-            Car car2 = new Car("ABC124", Colors.Red, false);
-            Motorcycle motorcycle1 = new Motorcycle("AAA111", Colors.Green, "Yamaha");
-            Motorcycle motorcycle2 = new Motorcycle("AAA222", Colors.Green, "Yamaha");
-            Motorcycle motorcycle3 = new Motorcycle("AAA333", Colors.Green, "Yamaha");
-            Motorcycle motorcycle4 = new Motorcycle("AAA444", Colors.Green, "Yamaha");
-            TryAddVehicleToParkHouse(bus1);
-            TryAddVehicleToParkHouse(bus2);
-            TryAddVehicleToParkHouse(motorcycle1);
-            TryAddVehicleToParkHouse(car1);
-            TryAddVehicleToParkHouse(motorcycle2);
-            TryAddVehicleToParkHouse(motorcycle3);
-            TryAddVehicleToParkHouse(car2);
-            TryAddVehicleToParkHouse(motorcycle4);
+            //Bus bus1 = new Bus("BBB222", Colors.Red, 55);
+            //Bus bus2 = new Bus("SSS333", Colors.Green, 44);
+            //Car car1 = new Car("ABC123", Colors.Red, false);
+            //Car car2 = new Car("ABC124", Colors.Red, false);
+            //Motorcycle motorcycle1 = new Motorcycle("AAA111", Colors.Green, "Yamaha");
+            //Motorcycle motorcycle2 = new Motorcycle("AAA222", Colors.Green, "Yamaha");
+            //Motorcycle motorcycle3 = new Motorcycle("AAA333", Colors.Green, "Yamaha");
+            //Motorcycle motorcycle4 = new Motorcycle("AAA444", Colors.Green, "Yamaha");
+            //TryAddVehicleToParkHouse(bus1);
+            //TryAddVehicleToParkHouse(bus2);
+            //TryAddVehicleToParkHouse(motorcycle1);
+            //TryAddVehicleToParkHouse(car1);
+            //TryAddVehicleToParkHouse(motorcycle2);
+            //TryAddVehicleToParkHouse(motorcycle3);
+            //TryAddVehicleToParkHouse(car2);
+            //TryAddVehicleToParkHouse(motorcycle4);
 
-            RemoveVehicle(bus1);
 
         }
         public bool TryAddVehicleToParkHouse(Vehicle vehicleToAdd)
