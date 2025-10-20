@@ -47,7 +47,7 @@ namespace Parkering
                 
             }
         }
-        static public Car UserSetVehicleInfo(Car car)
+        static public Car SetVehicleInfo(Car car)
         {
             car.Color = GetColorFromUser();
 
@@ -75,7 +75,7 @@ namespace Parkering
             return car;
             
         }
-        static public Bus UserSetVehicleInfo(Bus bus)
+        static public Bus SetVehicleInfo(Bus bus)
         {
             bus.Color = GetColorFromUser();
             bool isAmountOfSeatsCollected = false;
@@ -97,7 +97,7 @@ namespace Parkering
             }
             return bus;
         }
-        static public Motorcycle UserSetVehicleInfo(Motorcycle motorcycle)
+        static public Motorcycle SetVehicleInfo(Motorcycle motorcycle)
         {
             motorcycle.Color = GetColorFromUser();
             bool isBrandCollected = false;
@@ -116,16 +116,16 @@ namespace Parkering
             }
             return motorcycle;
         }
-        static public Vehicle UserSetVehicleInfo(Vehicle vehicle)
+        static public Vehicle SetVehicleInfo(Vehicle vehicle)
         {
             switch(vehicle)
             {
                 case Car:
-                    return UserSetVehicleInfo((Car)vehicle);
+                    return SetVehicleInfo((Car)vehicle);
                 case Bus:
-                    return UserSetVehicleInfo((Bus)vehicle);
+                    return SetVehicleInfo((Bus)vehicle);
                 case Motorcycle:
-                    return UserSetVehicleInfo((Motorcycle)vehicle);
+                    return SetVehicleInfo((Motorcycle)vehicle);
                 default:
                     return vehicle;
             }

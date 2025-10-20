@@ -13,7 +13,7 @@
                 switch(userAction)
                 {
                     case 'g':
-                        Vehicle vehicleToAdd = UserInputs.UserSetVehicleInfo(Helper.GetRandomVehicle());
+                        Vehicle vehicleToAdd = UserInputs.SetVehicleInfo(Helper.GetRandomVehicle());
                         bool success = parkingHouse.TryAddVehicleToParkHouse(vehicleToAdd);
                         if(success)
                         {

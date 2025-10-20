@@ -58,7 +58,7 @@ namespace Parkering
             }
             return false;
         }
-        public void RemoveVehicle(Vehicle vehicleToRemove)
+        private void RemoveVehicle(Vehicle vehicleToRemove)
         {
             for(int i = 0;  i < ParkingSpots.Count;i++)
             {
