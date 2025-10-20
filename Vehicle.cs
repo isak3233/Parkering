@@ -16,7 +16,7 @@ namespace Parkering
     internal class Vehicle
     {
         public string LicensePlate {  get;  }
-        public Colors Color {  get; } 
+        public Colors Color { get; set; } 
         public float Size { get; set; }
         public Vehicle(string licensePlate, Colors color)
         {
@@ -31,7 +31,7 @@ namespace Parkering
     }
     internal class Car : Vehicle
     {
-        public bool IsElectrical { get; }
+        public bool IsElectrical { get; set; }
         public Car(string licensePlate, Colors color, bool isElectrical) : base(licensePlate, color)
         {
             Size = 1.0f;
