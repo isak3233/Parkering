@@ -8,18 +8,45 @@ namespace Parkering
 {
     internal class ParkingSpot
     {
-        public List<Vehicle> Vehicles { get; set; }
+        public float AvailableSpace { get; set; }
+        public List<Vehicle> Vehicles { get; }
         public ParkingSpot()
         {
             Vehicles = new List<Vehicle>();
+            AvailableSpace = 1.0f;
         }
-        public void AddVehicle(Vehicle vehicleToAdd)
+        public bool TryAddVehicle(Vehicle vehicleToAdd)
         {
-            Vehicles.Add(vehicleToAdd);
+            if(vehicleToAdd.Size > 1.0f && AvailableSpace == 1.0f)
+            {
+                AvailableSpace = 0.0f;
+                Vehicles.Add(vehicleToAdd);
+                return true;
+            }
+            if(AvailableSpace - vehicleToAdd.Size >= 0.0f)
+            {
+                AvailableSpace -= vehicleToAdd.Size;
+                Vehicles.Add(vehicleToAdd);
+                return true;
+            }
+            return false;
         }
         public void RemoveVehicle(Vehicle vehicleToRemove)
         {
-            Vehicles.Remove(vehicleToRemove);
+            if(!Vehicles.Contains(vehicleToRemove))
+            {
+                return;
+            }
+
+            if (vehicleToRemove.Size > 1.0f)
+            {
+                AvailableSpace = 1.0f;
+                Vehicles.Remove(vehicleToRemove);
+            } else
+            {
+                AvailableSpace += vehicleToRemove.Size;
+                Vehicles.Remove(vehicleToRemove);
+            }
         }
     }
 }

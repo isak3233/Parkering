@@ -17,8 +17,10 @@ namespace Parkering
     {
         public string LicensePlate {  get;  }
         public Colors Color {  get; } 
+        public float Size { get; set; }
         public Vehicle(string licensePlate, Colors color)
         {
+
             LicensePlate = licensePlate;
             Color = color;
         }
@@ -32,6 +34,7 @@ namespace Parkering
         public bool IsElectrical { get; }
         public Car(string licensePlate, Colors color, bool isElectrical) : base(licensePlate, color)
         {
+            Size = 1.0f;
             IsElectrical = isElectrical;
         }
         public override string GetInformation()
@@ -46,6 +49,7 @@ namespace Parkering
         public string Brand { get; }
         public Motorcycle(string licensePlate, Colors color, string brand) : base(licensePlate, color)
         {
+            Size = 0.5f;
             Brand = brand;
         }
         public override string GetInformation()
@@ -60,12 +64,13 @@ namespace Parkering
         public int AmountOfSeats { get; }
         public Bus(string licensePlate, Colors color, int amountOfSeats) : base(licensePlate, color)
         {
+            Size = 2.0f;
             AmountOfSeats = amountOfSeats;
         }
         public override string GetInformation()
         {
             string baseInfo = base.GetInformation();
-            return $"MC\t{baseInfo}\t{AmountOfSeats}";
+            return $"Buss\t{baseInfo}\t{AmountOfSeats}";
 
         }
     }
