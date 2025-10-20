@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Vehicle car1 = new("ABC123");
-            Console.WriteLine(car1.LicensePlate);
+            ParkingHouse parkingHouse = new ParkingHouse(15);
+            parkingHouse.WriteOutParking();
         }
     }
 }
