@@ -45,6 +45,7 @@ namespace Parkering
                 {
                     if(parkingSpot.AvailableSpace == 1.0f && ParkingSpots[i+1].AvailableSpace == 1.0f)
                     {
+                        vehicleToAdd.TimeWhenParked = DateTime.Now;
                         ParkingSpots[i].TryAddVehicle(vehicleToAdd);
                         ParkingSpots[i+1].TryAddVehicle(vehicleToAdd);
                         return true;
@@ -52,6 +53,7 @@ namespace Parkering
                 }
                 if (ParkingSpots[i].TryAddVehicle(vehicleToAdd))
                 {
+                    vehicleToAdd.TimeWhenParked = DateTime.Now;
                     return true;
                 }
             }
@@ -64,6 +66,11 @@ namespace Parkering
                 ParkingSpots[i].RemoveVehicle(vehicleToRemove);
             }
             OptimizeParking();
+        }
+        public void RemoveVehicle(string licensePlate)
+        {
+            Vehicle vehicleToRemove = GetVehicle(licensePlate);
+            RemoveVehicle(vehicleToRemove);
         }
         private void OptimizeParking()
         {
@@ -85,6 +92,31 @@ namespace Parkering
                         }
                     }
                 }
+            }
+        }
+        public Vehicle GetVehicle(string licensePlate)
+        {
+            foreach (ParkingSpot parkingSpot in ParkingSpots)
+            {
+                foreach (Vehicle vehicle in parkingSpot.Vehicles)
+                {
+                    if (vehicle.LicensePlate == licensePlate)
+                    {
+                        return vehicle;
+                    }
+                }
+            }
+            throw new Exception("Finns inget fordon med denna registreringsskylt " + licensePlate);
+        }
+        public bool LicensePlateExist(string licensePlate)
+        {
+            try
+            {
+                GetVehicle(licensePlate);
+                return true;
+            } catch
+            {
+                return false;
             }
         }
         public void WriteOutParking()

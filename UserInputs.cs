@@ -9,6 +9,47 @@ namespace Parkering
 {
     internal class UserInputs
     {
+        static public char GetUserAction()
+        {
+            while(true)
+            {
+                Console.WriteLine("Parkera en ny slumpmässig bil (G)");
+                Console.WriteLine("Checka ut ett parkerat fordon (C)");
+                char key = Console.ReadKey().KeyChar;
+                RemoveOptionFromConsole();
+                switch (char.ToLower(key))
+                {
+                    case 'g':
+                        return 'g';
+                    case 'c':
+                        return 'c';
+                    default:
+                        Error(key);
+                        break;
+                }
+            }
+            
+        }
+        static private void RemoveOptionFromConsole()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop);
+        }
+        static public string GetLicensePlate(ParkingHouse parkingHouse)
+        {
+            while (true)
+            {
+                Console.Write("Fordonets registreringsnummer: ");
+                string licensePlate = Console.ReadLine();
+                if (parkingHouse.LicensePlateExist(licensePlate.ToUpper()))
+                {
+                    return licensePlate.ToUpper();
+                } else
+                {
+                    Error(licensePlate, "Existerar inte");
+                }
+                
+            }
+        }
         static public Car UserSetVehicleInfo(Car car)
         {
             car.Color = GetColorFromUser();
@@ -46,6 +87,7 @@ namespace Parkering
                 Console.Write("Hur många platser har bussen: ");
                 int amountOfSeats = 0;
                 string input = Console.ReadLine();
+                RemoveOptionFromConsole();
                 bool success = int.TryParse(input, out amountOfSeats);
                 if(success)
                 {
@@ -66,7 +108,8 @@ namespace Parkering
             {
                 Console.Write("Vilket märke är motorcyklen: ");
                 string brand = Console.ReadLine();
-                if(brand == "")
+                RemoveOptionFromConsole();
+                if (brand == "")
                 {
                     Error(brand, "Du skrev inget");
                 } else
@@ -106,13 +149,13 @@ namespace Parkering
         {
             while (true)
             {
-                Console.WriteLine("Tryck C för att få fram vilka färger det finns");
+                Console.WriteLine("Tryck F för att få fram vilka färger det finns");
                 Console.Write("Fordonets färg: ");
                 var key = Console.ReadKey().KeyChar;
                 Console.WriteLine();
-                switch (key)
+                switch (char.ToLower(key))
                 {
-                    case 'C' or 'c':
+                    case 'f':
                         WriteOutColors();
                         break;
                     default:
