@@ -133,7 +133,7 @@ namespace Parkering
                         {
                             indexString += "-";
                         }
-                        indexString += i + (j+1);
+                        indexString += i + j + 1;
                     }
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
                     vehiclesWritenOut.Add(vehicle);
