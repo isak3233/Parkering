@@ -32,9 +32,11 @@ namespace Parkering
                     if(sizeStillToAdd <= 0)
                     {
                         vehicleToAdd.TimeWhenParked = DateTime.Now;
+                        float sizeAdded = 0.0f;
                         for (int j = 0; j < vehicleToAdd.Size; j++)
                         {
-                            ParkingSpots[i + j].TryAddVehicle(vehicleToAdd);
+                            ParkingSpots[i + j].TryAddVehicle(vehicleToAdd, sizeAdded);
+                            sizeAdded += 1.0f;
                         }
                         return true;
                     }
@@ -109,9 +111,9 @@ namespace Parkering
         }
         public void WriteOutParking()
         {
+            List<Vehicle> vehiclesWritenOut = new List<Vehicle>();
             for (int i = 0; i < ParkingSpots.Count;i++)
             {
-                int indexToAdd = 0;
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(parkingSpot.Vehicles.Count == 0)
                 {
@@ -121,6 +123,10 @@ namespace Parkering
                 
                 foreach (Vehicle vehicle in parkingSpot.Vehicles)
                 {
+                    if (vehiclesWritenOut.Contains(vehicle))
+                    {
+                        continue;
+                    }
                     string indexString = "Plats ";
                     
                     for(int j = 0; j < vehicle.Size; j++)
@@ -128,14 +134,13 @@ namespace Parkering
                         if (j != 0)
                         {
                             indexString += "-";
-                            indexToAdd++;
                         }
                         indexString += i + (j+1);
                     }
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
-
+                    vehiclesWritenOut.Add(vehicle);
                 }
-                i += indexToAdd;// Detta behövs så att vi inte skriver ut fordon som tar upp flera platser flera gånger
+                
             }
         }
        

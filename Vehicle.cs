@@ -69,7 +69,7 @@ namespace Parkering
         public int AmountOfSeats { get; set; }
         public Bus(string licensePlate, Colors color, int amountOfSeats) : base(licensePlate, color)
         {
-            Size = 2.0f;
+            Size = 1.5f;
             AmountOfSeats = amountOfSeats;
         }
         public override string GetInformation()

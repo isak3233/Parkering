@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,17 +16,18 @@ namespace Parkering
             Vehicles = new List<Vehicle>();
             AvailableSpace = 1.0f;
         }
-        public bool TryAddVehicle(Vehicle vehicleToAdd)
+        public bool TryAddVehicle(Vehicle vehicleToAdd, float sizeAlreadyAdded = 0.0f)
         {
-            if(vehicleToAdd.Size > 1.0f && AvailableSpace == 1.0f)
+            float sizeToAdd = vehicleToAdd.Size - sizeAlreadyAdded;
+            if (sizeToAdd > 1.0f && AvailableSpace == 1.0f)
             {
                 AvailableSpace = 0.0f;
                 Vehicles.Add(vehicleToAdd);
                 return true;
             }
-            if(AvailableSpace - vehicleToAdd.Size >= 0.0f)
+            if(AvailableSpace - sizeToAdd >= 0.0f)
             {
-                AvailableSpace -= vehicleToAdd.Size;
+                AvailableSpace -= sizeToAdd;
                 Vehicles.Add(vehicleToAdd);
                 return true;
             }
