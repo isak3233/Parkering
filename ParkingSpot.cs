@@ -33,20 +33,21 @@ namespace Parkering
             }
             return false;
         }
-        public void RemoveVehicle(Vehicle vehicleToRemove)
+        public void RemoveVehicle(Vehicle vehicleToRemove, float sizeAlreadyRemoved = 0.0f)
         {
+            float sizeToRemove = vehicleToRemove.Size - sizeAlreadyRemoved;
             if(!Vehicles.Contains(vehicleToRemove))
             {
                 return;
             }
 
-            if (vehicleToRemove.Size > 1.0f)
+            if (sizeToRemove > 1.0f)
             {
                 AvailableSpace = 1.0f;
                 Vehicles.Remove(vehicleToRemove);
             } else
             {
-                AvailableSpace += vehicleToRemove.Size;
+                AvailableSpace += sizeToRemove;
                 Vehicles.Remove(vehicleToRemove);
             }
         }

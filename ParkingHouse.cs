@@ -51,9 +51,14 @@ namespace Parkering
         }
         private void RemoveVehicle(Vehicle vehicleToRemove)
         {
+            float sizeRemoved = 0.0f;
             for(int i = 0;  i < ParkingSpots.Count;i++)
             {
-                ParkingSpots[i].RemoveVehicle(vehicleToRemove);
+                if(ParkingSpots[i].Vehicles.Contains(vehicleToRemove))
+                {
+                    ParkingSpots[i].RemoveVehicle(vehicleToRemove, sizeRemoved);
+                    sizeRemoved += 1.0f;
+                }
             }
             OptimizeParking();
         }
@@ -64,24 +69,31 @@ namespace Parkering
         }
         private void OptimizeParking()
         {
+            Dictionary<Vehicle, float> vehicleSizeAlreadyRemoved = new Dictionary<Vehicle, float>();
             for (int i = 1; i < ParkingSpots.Count; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
-                List<Vehicle> vehicles = new (parkingSpot.Vehicles);
-
-                foreach (var vehicle in vehicles)
+                //List<Vehicle> vehicles = new (parkingSpot.Vehicles);
+                for(int j = 0; j < parkingSpot.Vehicles.Count; j++)
                 {
-                    for (int j = 0; j < i; j++)
+                    Vehicle vehicle = parkingSpot.Vehicles[j];
+                    if (!vehicleSizeAlreadyRemoved.ContainsKey(vehicle))
+                    {
+                        vehicleSizeAlreadyRemoved[vehicle] = 0.0f;
+                    }
+                    for (int h = 0; h < i; h++)
                     {
                         var newParkingSpot = ParkingSpots[j];
 
                         if (newParkingSpot.TryAddVehicle(vehicle))
                         {
-                            parkingSpot.RemoveVehicle(vehicle);
+                            parkingSpot.RemoveVehicle(vehicle, vehicleSizeAlreadyRemoved[vehicle]);
+                            vehicleSizeAlreadyRemoved[vehicle] += 1.0f;
                             break;
                         }
                     }
                 }
+                
             }
         }
         public Vehicle GetVehicle(string licensePlate)
@@ -117,26 +129,27 @@ namespace Parkering
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(parkingSpot.Vehicles.Count == 0)
                 {
-                    string indexString = $"Plats {i + 1}";
+                    string indexString = $"{parkingSpot.AvailableSpace} Plats {i + 1}";
                     Console.WriteLine($"{indexString.PadRight(15)} Tom");
                 }
-                
+
+
                 foreach (Vehicle vehicle in parkingSpot.Vehicles)
                 {
-                    if (vehiclesWritenOut.Contains(vehicle))
-                    {
-                        continue;
-                    }
-                    string indexString = "Plats ";
+                    //if (vehiclesWritenOut.Contains(vehicle))
+                    //{
+                    //    continue;
+                    //}
+                    string indexString = parkingSpot.AvailableSpace + " Plats " + (i + 1);
                     
-                    for(int j = 0; j < vehicle.Size; j++)
-                    {
-                        if (j != 0)
-                        {
-                            indexString += "-";
-                        }
-                        indexString += i + (j+1);
-                    }
+                    //for(int j = 0; j < vehicle.Size; j++)
+                    //{
+                    //    if (j != 0)
+                    //    {
+                    //        indexString += "-";
+                    //    }
+                    //    indexString += i + (j+1);
+                    //}
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
                     vehiclesWritenOut.Add(vehicle);
                 }
