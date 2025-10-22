@@ -31,6 +31,7 @@
                     default:
                         break;
                 }
+                Console.Write("Tryck ENTER för att fortsätta");
                 Console.ReadLine();
                 Console.Clear();
             }

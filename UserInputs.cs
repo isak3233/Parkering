@@ -13,7 +13,7 @@ namespace Parkering
         {
             while(true)
             {
-                Console.WriteLine("Parkera en ny slumpmässig bil (G)");
+                Console.WriteLine("Parkera ett nytt slumpmässigt fordon (G)");
                 Console.WriteLine("Checka ut ett parkerat fordon (C)");
                 char key = Console.ReadKey().KeyChar;
                 RemoveOptionFromConsole();
@@ -49,6 +49,7 @@ namespace Parkering
         }
         static public Car SetVehicleInfo(Car car)
         {
+            Console.WriteLine("Det kom in en bil");
             car.Color = GetColorFromUser();
 
             bool isElectricalCollected = false;
@@ -77,6 +78,7 @@ namespace Parkering
         }
         static public Bus SetVehicleInfo(Bus bus)
         {
+            Console.WriteLine("Det kom in en buss");
             bus.Color = GetColorFromUser();
             bool isAmountOfSeatsCollected = false;
             while (!isAmountOfSeatsCollected)
@@ -88,6 +90,7 @@ namespace Parkering
                 bool success = int.TryParse(input, out amountOfSeats);
                 if(success)
                 {
+                    bus.AmountOfSeats = amountOfSeats;
                     isAmountOfSeatsCollected = true;
                 } else
                 {
@@ -99,6 +102,7 @@ namespace Parkering
         }
         static public Motorcycle SetVehicleInfo(Motorcycle motorcycle)
         {
+            Console.WriteLine("Det kom in en motorcykel");
             motorcycle.Color = GetColorFromUser();
             bool isBrandCollected = false;
             while(!isBrandCollected)
@@ -111,6 +115,7 @@ namespace Parkering
                     Error(brand, "Du skrev inget");
                 } else
                 {
+                    motorcycle.Brand = brand;
                     isBrandCollected = true;
                 }
             }
@@ -153,6 +158,7 @@ namespace Parkering
                 switch (char.ToLower(key))
                 {
                     case 'f':
+                        RemoveOptionFromConsole();
                         WriteOutColors();
                         break;
                     default:

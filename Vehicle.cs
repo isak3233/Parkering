@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace Parkering
         public Colors Color { get; set; } 
         public float Size { get; set; }
         public DateTime TimeWhenParked { get; set; }
+        protected int padding = 8;
         public Vehicle(string licensePlate, Colors color)
         {
 
@@ -27,7 +29,8 @@ namespace Parkering
         }
         public virtual string GetInformation()
         {
-            return $"{LicensePlate}\t{Helper.ColorsToSwedish(Color)}";
+
+            return $"{LicensePlate.PadRight(10)}{Helper.ColorsToSwedish(Color).PadRight(padding)}";
         }
     }
     internal class Car : Vehicle
@@ -41,13 +44,14 @@ namespace Parkering
         public override string GetInformation()
         {
             string baseInfo = base.GetInformation();
-            return $"Bil\t{baseInfo}\t{(IsElectrical ? "Elbil" : "Förbränningsbil")}";
+            
+            return $"{"Bil".PadRight(padding)}{baseInfo}{(IsElectrical ? "Elbil" : "Förbränningsbil")}";
 
         }
     }
     internal class Motorcycle : Vehicle
     {
-        public string Brand { get; }
+        public string Brand { get; set; }
         public Motorcycle(string licensePlate, Colors color, string brand) : base(licensePlate, color)
         {
             Size = 0.5f;
@@ -56,13 +60,13 @@ namespace Parkering
         public override string GetInformation()
         {
             string baseInfo = base.GetInformation();
-            return $"MC\t{baseInfo}\t{Brand}";
+            return $"{"MC".PadRight(padding)}{baseInfo}{Brand}";
 
         }
     }
     internal class Bus : Vehicle
     {
-        public int AmountOfSeats { get; }
+        public int AmountOfSeats { get; set; }
         public Bus(string licensePlate, Colors color, int amountOfSeats) : base(licensePlate, color)
         {
             Size = 2.0f;
@@ -71,7 +75,7 @@ namespace Parkering
         public override string GetInformation()
         {
             string baseInfo = base.GetInformation();
-            return $"Buss\t{baseInfo}\t{AmountOfSeats}";
+            return $"{"Buss".PadRight(padding)}{baseInfo}{AmountOfSeats}";
 
         }
     }

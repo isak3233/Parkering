@@ -16,24 +16,6 @@ namespace Parkering
             {
                 ParkingSpots.Add(new ParkingSpot());
             }
-            //Bus bus1 = new Bus("BBB222", Colors.Red, 55);
-            //Bus bus2 = new Bus("SSS333", Colors.Green, 44);
-            //Car car1 = new Car("ABC123", Colors.Red, false);
-            //Car car2 = new Car("ABC124", Colors.Red, false);
-            //Motorcycle motorcycle1 = new Motorcycle("AAA111", Colors.Green, "Yamaha");
-            //Motorcycle motorcycle2 = new Motorcycle("AAA222", Colors.Green, "Yamaha");
-            //Motorcycle motorcycle3 = new Motorcycle("AAA333", Colors.Green, "Yamaha");
-            //Motorcycle motorcycle4 = new Motorcycle("AAA444", Colors.Green, "Yamaha");
-            //TryAddVehicleToParkHouse(bus1);
-            //TryAddVehicleToParkHouse(bus2);
-            //TryAddVehicleToParkHouse(motorcycle1);
-            //TryAddVehicleToParkHouse(car1);
-            //TryAddVehicleToParkHouse(motorcycle2);
-            //TryAddVehicleToParkHouse(motorcycle3);
-            //TryAddVehicleToParkHouse(car2);
-            //TryAddVehicleToParkHouse(motorcycle4);
-
-
         }
         public bool TryAddVehicleToParkHouse(Vehicle vehicleToAdd)
         {
@@ -42,11 +24,18 @@ namespace Parkering
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(vehicleToAdd.Size > 1.0f)
                 {
-                    if(parkingSpot.AvailableSpace == 1.0f && ParkingSpots[i+1].AvailableSpace == 1.0f)
+                    float sizeStillToAdd = vehicleToAdd.Size;
+                    for(int j = 0;  j < vehicleToAdd.Size; j++)
+                    {
+                        sizeStillToAdd -= parkingSpot.AvailableSpace;
+                    }
+                    if(sizeStillToAdd <= 0)
                     {
                         vehicleToAdd.TimeWhenParked = DateTime.Now;
-                        ParkingSpots[i].TryAddVehicle(vehicleToAdd);
-                        ParkingSpots[i+1].TryAddVehicle(vehicleToAdd);
+                        for (int j = 0; j < vehicleToAdd.Size; j++)
+                        {
+                            ParkingSpots[i + j].TryAddVehicle(vehicleToAdd);
+                        }
                         return true;
                     }
                 }
@@ -122,25 +111,33 @@ namespace Parkering
         {
             for (int i = 0; i < ParkingSpots.Count;i++)
             {
+                int indexToAdd = 0;
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(parkingSpot.Vehicles.Count == 0)
                 {
-                    Console.WriteLine($"Plats {i + 1}\t Tom");
+                    string indexString = $"Plats {i + 1}";
+                    Console.WriteLine($"{indexString.PadRight(15)} Tom");
                 }
+                
                 foreach (Vehicle vehicle in parkingSpot.Vehicles)
                 {
-                    if (vehicle is Bus)
-                    {
-                        Console.WriteLine($"Plats {i+1}-{i+2}\t {vehicle.GetInformation()}");
-                        i += 1;
-                    } else
-                    {
-                        Console.WriteLine($"Plats {i+1}\t\t {vehicle.GetInformation()}");
-                    }
-                        
+                    string indexString = "Plats ";
                     
+                    for(int j = 0; j < vehicle.Size; j++)
+                    {
+                        if (j != 0)
+                        {
+                            indexString += "-";
+                            indexToAdd++;
+                        }
+                        indexString += i + (j+1);
+                    }
+                    Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
+
                 }
+                i += indexToAdd;// Detta behövs så att vi inte skriver ut fordon som tar upp flera platser flera gånger
             }
         }
+       
     }
 }
