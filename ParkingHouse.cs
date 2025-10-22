@@ -71,7 +71,7 @@ namespace Parkering
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        var newParkingSpot = ParkingSpots[j];
+                        ParkingSpot newParkingSpot = ParkingSpots[j];
 
                         if (newParkingSpot.TryAddVehicle(vehicle))
                         {
