@@ -27,7 +27,7 @@ namespace Parkering
                     float sizeStillToAdd = vehicleToAdd.Size;
                     for(int j = 0;  j < vehicleToAdd.Size; j++)
                     {
-                        sizeStillToAdd -= parkingSpot.AvailableSpace;
+                        sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
                     }
                     if(sizeStillToAdd <= 0)
                     {
