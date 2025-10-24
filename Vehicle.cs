@@ -13,7 +13,8 @@ namespace Parkering
         Red,
         Green,
         Blue,
-        Yellow
+        Yellow,
+        White
     }
     internal class Vehicle
     {
@@ -30,8 +31,12 @@ namespace Parkering
         }
         public virtual string GetInformation()
         {
-
-            return $"{LicensePlate.PadRight(10)}{Helper.ColorsToSwedish(Color).PadRight(padding)}";
+            string color = Color.ToString();
+            if (Helper.ColorsToSwedish(Color) != "")
+            {
+                color = Helper.ColorsToSwedish(Color);
+            }
+            return $"{LicensePlate.PadRight(10)}{color.PadRight(padding)}";
         }
     }
     internal class Car : Vehicle

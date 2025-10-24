@@ -52,7 +52,6 @@ namespace Parkering
             {
                 Console.Write("Är bilen en elbil (ja) eller (nej): ");
                 string answer = Console.ReadLine();
-                Console.WriteLine();
                 switch (answer.ToLower())
                 {
                     case "ja":
