@@ -35,8 +35,6 @@ namespace Parkering
                             sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
                         }
                     }
-                    //Console.WriteLine(vehicleToAdd.LicensePlate);
-                    //Console.WriteLine(sizeStillToAdd);
                     if(sizeStillToAdd <= 0)
                     {
                         vehicleToAdd.TimeWhenParked = DateTime.Now;
@@ -81,7 +79,6 @@ namespace Parkering
             for (int i = 1; i < ParkingSpots.Count; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
-                //List<Vehicle> vehicles = new (parkingSpot.Vehicles);
                 for(int j = 0; j < parkingSpot.Vehicles.Count; j++)
                 {
                     Vehicle vehicle = parkingSpot.Vehicles[j];
@@ -136,29 +133,30 @@ namespace Parkering
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(parkingSpot.Vehicles.Count == 0)
                 {
-                    string indexString = $"{parkingSpot.AvailableSpace} Plats {i + 1}";
+                    string indexString = $"Plats {i + 1}";
                     Console.WriteLine($"{indexString.PadRight(15)} Tom");
                 }
 
 
                 foreach (Vehicle vehicle in parkingSpot.Vehicles)
                 {
-                    //if (vehiclesWritenOut.Contains(vehicle))
-                    //{
-                    //    continue;
-                    //}
-                    string indexString = parkingSpot.AvailableSpace + " Plats " + (i + 1);
-                    
-                    //for(int j = 0; j < vehicle.Size; j++)
-                    //{
-                    //    if (j != 0)
-                    //    {
-                    //        indexString += "-";
-                    //    }
-                    //    indexString += i + (j+1);
-                    //}
+                    if (vehiclesWritenOut.Contains(vehicle))
+                    {
+                        continue;
+                    }
+                    string indexString = "Plats ";
+
+                    for (int j = 0; j < vehicle.Size; j++)
+                    {
+                        if (j != 0)
+                        {
+                            indexString += "-";
+                        }
+                        indexString += i + (j + 1);
+                    }
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
                     vehiclesWritenOut.Add(vehicle);
+
                 }
                 
             }

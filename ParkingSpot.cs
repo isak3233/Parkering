@@ -18,10 +18,7 @@ namespace Parkering
         }
         public bool TryAddVehicle(Vehicle vehicleToAdd, float sizeAlreadyAdded = 0.0f)
         {
-            //Console.Write("På plats " + (plats + 1) + " ");
             float sizeToAdd = vehicleToAdd.Size - sizeAlreadyAdded;
-            //Console.Write(AvailableSpace);
-            //Console.WriteLine();
             if (sizeToAdd > 1.0f && AvailableSpace == 1.0f)
             {
                 AvailableSpace = 0.0f;

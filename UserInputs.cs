@@ -17,18 +17,8 @@ namespace Parkering
                 Console.WriteLine("Checka ut ett parkerat fordon (C)");
                 char key = Console.ReadKey().KeyChar;
                 RemoveOptionFromConsole();
-                switch (char.ToLower(key))
-                {
-                    case 'g':
-                        return 'g';
-                    case 'c':
-                        return 'c';
-                    case 'o':
-                        return 'o';
-                    default:
-                        Error(key);
-                        break;
-                }
+                return key;
+                
             }
             
         }
@@ -37,13 +27,17 @@ namespace Parkering
         {
             while (true)
             {
-                Console.Write("Fordonets registreringsnummer: ");
+                Console.Write("Fordonets registreringsnummer (A för avbryt): ");
                 string licensePlate = Console.ReadLine();
                 if (parkingHouse.LicensePlateExist(licensePlate.ToUpper()))
                 {
                     return licensePlate.ToUpper();
                 } else
                 {
+                    if(licensePlate.ToUpper() == "A")
+                    {
+                        throw new Exception();
+                    }
                     Error(licensePlate, "Existerar inte");
                 }
                 
@@ -183,7 +177,7 @@ namespace Parkering
                 Console.WriteLine($"{Helper.ColorsToSwedish(color)} ({Helper.ColorsToSwedish(color)[0]})");
             }
         }
-        static private void Error(char input)
+        static public void Error(char input)
         {
             Console.WriteLine($"{input} finns inte som alternativ");
         }
