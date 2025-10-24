@@ -18,7 +18,10 @@ namespace Parkering
         }
         public bool TryAddVehicle(Vehicle vehicleToAdd, float sizeAlreadyAdded = 0.0f)
         {
+            //Console.Write("På plats " + (plats + 1) + " ");
             float sizeToAdd = vehicleToAdd.Size - sizeAlreadyAdded;
+            //Console.Write(AvailableSpace);
+            //Console.WriteLine();
             if (sizeToAdd > 1.0f && AvailableSpace == 1.0f)
             {
                 AvailableSpace = 0.0f;
@@ -43,11 +46,14 @@ namespace Parkering
 
             if (sizeToRemove > 1.0f)
             {
+                
+                Console.WriteLine(vehicleToRemove.LicensePlate + " Sets to 1.0");
                 AvailableSpace = 1.0f;
                 Vehicles.Remove(vehicleToRemove);
             } else
             {
                 AvailableSpace += sizeToRemove;
+                Console.WriteLine(vehicleToRemove.LicensePlate + " Sets to new space");
                 Vehicles.Remove(vehicleToRemove);
             }
         }

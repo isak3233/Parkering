@@ -23,6 +23,8 @@ namespace Parkering
                         return 'g';
                     case 'c':
                         return 'c';
+                    case 'o':
+                        return 'o';
                     default:
                         Error(key);
                         break;
@@ -57,7 +59,6 @@ namespace Parkering
             {
                 Console.Write("Är bilen en elbil (ja) eller (nej): ");
                 string answer = Console.ReadLine();
-                Console.WriteLine();
                 switch (answer.ToLower())
                 {
                     case "ja":

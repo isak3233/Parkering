@@ -27,8 +27,16 @@ namespace Parkering
                     float sizeStillToAdd = vehicleToAdd.Size;
                     for(int j = 0;  j < vehicleToAdd.Size; j++)
                     {
-                        sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
+                        if(ParkingSpots[i].AvailableSpace == 1 && sizeStillToAdd >= 1 )
+                        {
+                            sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
+                        } else if(sizeStillToAdd <= 1)
+                        {
+                            sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
+                        }
                     }
+                    //Console.WriteLine(vehicleToAdd.LicensePlate);
+                    //Console.WriteLine(sizeStillToAdd);
                     if(sizeStillToAdd <= 0)
                     {
                         vehicleToAdd.TimeWhenParked = DateTime.Now;
@@ -67,7 +75,7 @@ namespace Parkering
             Vehicle vehicleToRemove = GetVehicle(licensePlate);
             RemoveVehicle(vehicleToRemove);
         }
-        private void OptimizeParking()
+        public void OptimizeParking()
         {
             Dictionary<Vehicle, float> vehicleSizeAlreadyRemoved = new Dictionary<Vehicle, float>();
             for (int i = 1; i < ParkingSpots.Count; i++)
@@ -83,14 +91,13 @@ namespace Parkering
                     }
                     for (int h = 0; h < i; h++)
                     {
-                        var newParkingSpot = ParkingSpots[j];
-
-                        if (newParkingSpot.TryAddVehicle(vehicle))
+                        var newParkingSpot = ParkingSpots[h];
+                        if (newParkingSpot.TryAddVehicle(vehicle, vehicleSizeAlreadyRemoved[vehicle]))
                         {
                             parkingSpot.RemoveVehicle(vehicle, vehicleSizeAlreadyRemoved[vehicle]);
                             vehicleSizeAlreadyRemoved[vehicle] += 1.0f;
                             break;
-                        }
+                        }                        
                     }
                 }
                 

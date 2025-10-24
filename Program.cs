@@ -5,7 +5,12 @@
         
         static void Main(string[] args)
         {
+
             ParkingHouse parkingHouse = new ParkingHouse(15);
+            Bus bus1 = new Bus("AAA111", Colors.Red, 20);
+            Bus bus2 = new Bus("BBB222", Colors.Blue, 20);
+            parkingHouse.TryAddVehicleToParkHouse(bus1);
+            parkingHouse.TryAddVehicleToParkHouse(bus2);
             while (true)
             {
                 parkingHouse.WriteOutParking();
@@ -27,6 +32,9 @@
                         string licensePlate = UserInputs.GetLicensePlate(parkingHouse);
                         WriteOutParkingFee(parkingHouse.GetVehicle(licensePlate));
                         parkingHouse.RemoveVehicle(licensePlate);
+                        break;
+                    case 'o':
+                        parkingHouse.OptimizeParking();
                         break;
                     default:
                         break;
