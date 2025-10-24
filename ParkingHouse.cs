@@ -19,6 +19,10 @@ namespace Parkering
         }
         public bool TryAddVehicleToParkHouse(Vehicle vehicleToAdd)
         {
+            if(vehicleToAdd.GetType() == typeof(Vehicle)) 
+            {
+                return false;
+            }
             for(int i = 0;i < ParkingSpots.Count; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
