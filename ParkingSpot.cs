@@ -21,10 +21,7 @@ namespace Parkering
             //{
             //    return false;
             //}
-            if(vehicleToAdd.GetType() == typeof(Vehicle))
-            {
-                return false;
-            }
+            
             if(vehicleToAdd.Size > 1.0f && AvailableSpace == 1.0f)
             {
                 AvailableSpace = 0.0f;
