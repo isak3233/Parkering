@@ -22,6 +22,9 @@ namespace Parkering
                 case Colors.Blue:
                     swedishText = "Blå";
                     break;
+                case Colors.Yellow:
+                    swedishText = "Gul";
+                    break;
                 default:
                     break;
             }

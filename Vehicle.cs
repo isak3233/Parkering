@@ -12,7 +12,8 @@ namespace Parkering
     {
         Red,
         Green,
-        Blue
+        Blue,
+        Yellow
     }
     internal class Vehicle
     {

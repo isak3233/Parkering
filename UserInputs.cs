@@ -17,16 +17,7 @@ namespace Parkering
                 Console.WriteLine("Checka ut ett parkerat fordon (C)");
                 char key = Console.ReadKey().KeyChar;
                 RemoveOptionFromConsole();
-                switch (char.ToLower(key))
-                {
-                    case 'g':
-                        return 'g';
-                    case 'c':
-                        return 'c';
-                    default:
-                        Error(key);
-                        break;
-                }
+                return key;
             }
             
         }
@@ -35,13 +26,17 @@ namespace Parkering
         {
             while (true)
             {
-                Console.Write("Fordonets registreringsnummer: ");
+                Console.Write("Fordonets registreringsnummer (A för avbryt): ");
                 string licensePlate = Console.ReadLine();
                 if (parkingHouse.LicensePlateExist(licensePlate.ToUpper()))
                 {
                     return licensePlate.ToUpper();
                 } else
                 {
+                    if(licensePlate.ToUpper() == "A")
+                    {
+                        throw new Exception("Avbröt check out");
+                    }
                     Error(licensePlate, "Existerar inte");
                 }
                 
@@ -140,7 +135,7 @@ namespace Parkering
         {
             foreach (Colors color in Enum.GetValues(typeof(Colors)))
             {
-                if(Helper.ColorsToSwedish(color)[0] == char.ToUpper(colorChar))
+                if(color.ToString()[0] == char.ToUpper(colorChar))
                 {
                     return color;
                 }
@@ -179,10 +174,17 @@ namespace Parkering
         {
             foreach(Colors color in Enum.GetValues(typeof(Colors)))
             {
-                Console.WriteLine($"{Helper.ColorsToSwedish(color)} ({Helper.ColorsToSwedish(color)[0]})");
+                if(Helper.ColorsToSwedish(color) == "")
+                {
+                    Console.WriteLine($"{color} ({color.ToString()[0]})");
+                } else
+                {
+                    Console.WriteLine($"{Helper.ColorsToSwedish(color)} ({color.ToString()[0]})");
+                }
+                    
             }
         }
-        static private void Error(char input)
+        static public void Error(char input)
         {
             Console.WriteLine($"{input} finns inte som alternativ");
         }

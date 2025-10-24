@@ -24,15 +24,22 @@
                         }
                         break;
                     case 'c':
-                        string licensePlate = UserInputs.GetLicensePlate(parkingHouse);
-                        WriteOutParkingFee(parkingHouse.GetVehicle(licensePlate));
-                        parkingHouse.RemoveVehicle(licensePlate);
+                        try
+                        {
+                            string licensePlate = UserInputs.GetLicensePlate(parkingHouse);
+                            WriteOutParkingFee(parkingHouse.GetVehicle(licensePlate));
+                            parkingHouse.RemoveVehicle(licensePlate);
+                        } catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
                         break;
                     default:
+                        UserInputs.Error(userAction);
                         break;
                 }
-                Console.Write("Tryck ENTER för att fortsätta");
-                Console.ReadLine();
+                Console.Write("Tryck ner tangent för att fortsätta");
+                Console.ReadKey();
                 Console.Clear();
             }
         }
