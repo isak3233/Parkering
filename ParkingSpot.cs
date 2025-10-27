@@ -17,10 +17,6 @@ namespace Parkering
         }
         public bool TryAddVehicle(Vehicle vehicleToAdd)
         {
-            //if (vehicleToAdd is not Car && vehicleToAdd is not Motorcycle && vehicleToAdd is not Bus)
-            //{
-            //    return false;
-            //}
             
             if(vehicleToAdd.Size > 1.0f && AvailableSpace == 1.0f)
             {

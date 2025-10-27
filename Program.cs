@@ -5,7 +5,9 @@
         
         static void Main(string[] args)
         {
-            ParkingHouse parkingHouse = new ParkingHouse(15);
+            int amountOfParkingSpots = 15;
+            float parkingHouseParkingFee = 1.5f;
+            ParkingHouse parkingHouse = new ParkingHouse(amountOfParkingSpots, parkingHouseParkingFee);
             while (true)
             {
                 parkingHouse.WriteOutParking();
@@ -27,7 +29,8 @@
                         try
                         {
                             string licensePlate = UserInputs.GetLicensePlate(parkingHouse);
-                            WriteOutParkingFee(parkingHouse.GetVehicle(licensePlate));
+                            (TimeSpan parkedTotalTime, double parkingFee) = parkingHouse.GetParkingFeeInfo(licensePlate);
+                            Console.WriteLine($"Fordonet har varit parkerad i {Helper.GetTimeString(parkedTotalTime)} och det kostar då {(parkingFee):F2}kr");
                             parkingHouse.RemoveVehicle(licensePlate);
                         } catch(Exception e)
                         {
@@ -43,18 +46,7 @@
                 Console.Clear();
             }
         }
-        static private void WriteOutParkingFee(Vehicle vehicle)
-        {
-            TimeSpan parkedTotalTime = DateTime.Now - vehicle.TimeWhenParked;
-            Console.WriteLine($"Fordonet har varit parkerad i {Helper.GetTimeString(parkedTotalTime)} och det kostar då {GetParkingFee(parkedTotalTime):F2}kr");
-        }
-        static private double GetParkingFee(TimeSpan parkedTotalTime)
-        {
-            return parkedTotalTime.TotalMinutes * 1.5;
-        }
-
-
-
+ 
 
     }
 }

@@ -8,22 +8,20 @@ namespace Parkering
 {
     internal class ParkingHouse
     {
-        public List<ParkingSpot> ParkingSpots { get; set; }
-        public ParkingHouse(int amountOfParkings)
+        public ParkingSpot[] ParkingSpots { get; }
+        private float ParkFee { get; }
+        public ParkingHouse(int amountOfParkings, float parkFee)
         {
-            ParkingSpots = new List<ParkingSpot>();
-            for (int i = 0; i < amountOfParkings; i++)
+            ParkingSpots = new ParkingSpot[amountOfParkings];
+            for(int i = 0; i < ParkingSpots.Length; i++)
             {
-                ParkingSpots.Add(new ParkingSpot());
+                ParkingSpots[i] = new ParkingSpot();
             }
+            ParkFee = parkFee;
         }
         public bool TryAddVehicleToParkHouse(Vehicle vehicleToAdd)
         {
-            if(vehicleToAdd.GetType() == typeof(Vehicle)) 
-            {
-                return false;
-            }
-            for(int i = 0;i < ParkingSpots.Count; i++)
+            for(int i = 0;i < ParkingSpots.Length; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(vehicleToAdd.Size > 1.0f)
@@ -53,7 +51,7 @@ namespace Parkering
         }
         private void RemoveVehicle(Vehicle vehicleToRemove)
         {
-            for(int i = 0;  i < ParkingSpots.Count;i++)
+            for(int i = 0;  i < ParkingSpots.Length; i++)
             {
                 ParkingSpots[i].RemoveVehicle(vehicleToRemove);
             }
@@ -66,7 +64,7 @@ namespace Parkering
         }
         private void OptimizeParking()
         {
-            for (int i = 1; i < ParkingSpots.Count; i++)
+            for (int i = 1; i < ParkingSpots.Length; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 List<Vehicle> vehicles = new (parkingSpot.Vehicles);
@@ -111,10 +109,18 @@ namespace Parkering
                 return false;
             }
         }
+        
+        public (TimeSpan parkedTotalTime, double parkingFee) GetParkingFeeInfo(string licensePlate)
+        {
+
+            TimeSpan parkedTotalTime = DateTime.Now - GetVehicle(licensePlate).TimeWhenParked;
+            return (parkedTotalTime, (parkedTotalTime.TotalMinutes * ParkFee));
+            
+        }
         public void WriteOutParking()
         {
             List<Vehicle> vehiclesWritenOut = new List<Vehicle>();
-            for (int i = 0; i < ParkingSpots.Count;i++)
+            for (int i = 0; i < ParkingSpots.Length; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 if(parkingSpot.Vehicles.Count == 0)
@@ -139,7 +145,7 @@ namespace Parkering
                         }
                         indexString += i + j + 1;
                     }
-                    Console.WriteLine($"{indexString.PadRight(15)} {vehicle.GetInformation()}");
+                    Console.WriteLine($"{indexString.PadRight(15)} {vehicle}");
                     vehiclesWritenOut.Add(vehicle);
 
                 }

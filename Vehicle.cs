@@ -16,7 +16,7 @@ namespace Parkering
         Yellow,
         White
     }
-    internal class Vehicle
+    internal abstract class Vehicle
     {
         public string LicensePlate {  get;  }
         public Colors Color { get; set; } 
@@ -29,7 +29,7 @@ namespace Parkering
             LicensePlate = licensePlate;
             Color = color;
         }
-        public virtual string GetInformation()
+        public override string ToString()
         {
             string color = Color.ToString();
             if (Helper.ColorsToSwedish(Color) != "")
@@ -47,9 +47,9 @@ namespace Parkering
             Size = 1.0f;
             IsElectrical = isElectrical;
         }
-        public override string GetInformation()
+        public override string ToString()
         {
-            string baseInfo = base.GetInformation();
+            string baseInfo = base.ToString();
             
             return $"{"Bil".PadRight(padding)}{baseInfo}{(IsElectrical ? "Elbil" : "Förbränningsbil")}";
 
@@ -63,9 +63,9 @@ namespace Parkering
             Size = 0.5f;
             Brand = brand;
         }
-        public override string GetInformation()
+        public override string ToString()
         {
-            string baseInfo = base.GetInformation();
+            string baseInfo = base.ToString();
             return $"{"MC".PadRight(padding)}{baseInfo}{Brand}";
 
         }
@@ -78,9 +78,9 @@ namespace Parkering
             Size = 2.0f;
             AmountOfSeats = amountOfSeats;
         }
-        public override string GetInformation()
+        public override string ToString()
         {
-            string baseInfo = base.GetInformation();
+            string baseInfo = base.ToString();
             return $"{"Buss".PadRight(padding)}{baseInfo}{AmountOfSeats}";
 
         }
