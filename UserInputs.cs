@@ -42,7 +42,7 @@ namespace Parkering
                 
             }
         }
-        static public Vehicle SetVehicleInfo(Car car)
+        static public void SetVehicleInfo(Car car)
         {
             Console.WriteLine("Det kom in en bil");
             car.Color = GetColorFromUser();
@@ -67,10 +67,9 @@ namespace Parkering
                         break;
                 }
             }
-            return car;
             
         }
-        static public Vehicle SetVehicleInfo(Bus bus)
+        static public void SetVehicleInfo(Bus bus)
         {
             Console.WriteLine("Det kom in en buss");
             bus.Color = GetColorFromUser();
@@ -92,9 +91,8 @@ namespace Parkering
                 }
                 
             }
-            return bus;
         }
-        static public Vehicle SetVehicleInfo(Motorcycle motorcycle)
+        static public void SetVehicleInfo(Motorcycle motorcycle)
         {
             Console.WriteLine("Det kom in en motorcykel");
             motorcycle.Color = GetColorFromUser();
@@ -113,20 +111,22 @@ namespace Parkering
                     isBrandCollected = true;
                 }
             }
-            return motorcycle;
         }
-        static public Vehicle SetVehicleInfo(Vehicle vehicle)
+        static public void SetVehicleInfo(Vehicle vehicle)
         {
             switch(vehicle)
             {
                 case Car:
-                    return SetVehicleInfo((Car)vehicle);
+                    SetVehicleInfo((Car)vehicle);
+                    break;
                 case Bus:
-                    return SetVehicleInfo((Bus)vehicle);
+                    SetVehicleInfo((Bus)vehicle);
+                    break;
                 case Motorcycle:
-                    return SetVehicleInfo((Motorcycle)vehicle);
+                    SetVehicleInfo((Motorcycle)vehicle);
+                    break;
                 default:
-                    return vehicle;
+                    break;
             }
 
         }

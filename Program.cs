@@ -15,8 +15,9 @@
                 switch(userAction)
                 {
                     case 'g':
-                        Vehicle vehicleToAdd = UserInputs.SetVehicleInfo(Helper.GetRandomVehicle());
-                        bool success = parkingHouse.TryAddVehicleToParkHouse(vehicleToAdd);
+                        Vehicle newVehicle = Helper.GetRandomVehicle();
+                        UserInputs.SetVehicleInfo(newVehicle);
+                        bool success = parkingHouse.TryAddVehicleToParkHouse(newVehicle);
                         if(success)
                         {
                             Console.WriteLine("Fordonet lades till i parkerings huset");
