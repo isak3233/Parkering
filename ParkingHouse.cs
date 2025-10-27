@@ -29,7 +29,11 @@ namespace Parkering
                     float sizeStillToAdd = vehicleToAdd.Size;
                     for(int j = 0;  j < vehicleToAdd.Size; j++)
                     {
-                        sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
+                        if(j + i > ParkingSpots.Length)
+                        {
+                            sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
+                        }
+                        
                     }
                     if(sizeStillToAdd <= 0)
                     {
@@ -69,7 +73,7 @@ namespace Parkering
                 ParkingSpot parkingSpot = ParkingSpots[i];
                 List<Vehicle> vehicles = new (parkingSpot.Vehicles);
 
-                foreach (var vehicle in vehicles)
+                foreach (Vehicle vehicle in vehicles)
                 {
                     for (int j = 0; j < i; j++)
                     {
@@ -135,16 +139,17 @@ namespace Parkering
                     {
                         continue;
                     }
-                    string indexString = "Plats ";
+                    string extraSlots = $"-{(i) + vehicle.Size}";
+                    string indexString = $"Plats {(i+1)}{(vehicle.Size > 1.0f  ? extraSlots : "")}";
                     
-                    for(int j = 0; j < vehicle.Size; j++)
-                    {
-                        if (j != 0)
-                        {
-                            indexString += "-";
-                        }
-                        indexString += i + j + 1;
-                    }
+                    //for(int j = 0; j < vehicle.Size; j++)
+                    //{
+                    //    if (j != 0)
+                    //    {
+                    //        indexString += "-";
+                    //    }
+                    //    indexString += i + j + 1;
+                    //}
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle}");
                     vehiclesWritenOut.Add(vehicle);
 
