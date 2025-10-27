@@ -42,7 +42,7 @@ namespace Parkering
                 
             }
         }
-        static public Car SetVehicleInfo(Car car)
+        static public Vehicle SetVehicleInfo(Car car)
         {
             Console.WriteLine("Det kom in en bil");
             car.Color = GetColorFromUser();
@@ -70,7 +70,7 @@ namespace Parkering
             return car;
             
         }
-        static public Bus SetVehicleInfo(Bus bus)
+        static public Vehicle SetVehicleInfo(Bus bus)
         {
             Console.WriteLine("Det kom in en buss");
             bus.Color = GetColorFromUser();
@@ -94,7 +94,7 @@ namespace Parkering
             }
             return bus;
         }
-        static public Motorcycle SetVehicleInfo(Motorcycle motorcycle)
+        static public Vehicle SetVehicleInfo(Motorcycle motorcycle)
         {
             Console.WriteLine("Det kom in en motorcykel");
             motorcycle.Color = GetColorFromUser();
