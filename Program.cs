@@ -8,14 +8,25 @@
             int amountOfParkingSpots = 15;
             float parkingHouseParkingFee = 1.5f;
             ParkingHouse parkingHouse = new ParkingHouse(amountOfParkingSpots, parkingHouseParkingFee);
+            bool isRandomVehicle = UserInputs.GetYesOrNo("Ska fordonen random genereras");
+            Console.Clear();
             while (true)
             {
                 parkingHouse.WriteOutParking();
+                Console.WriteLine("Parkera ett nytt slumpmässigt fordon (G)");
+                Console.WriteLine("Checka ut ett parkerat fordon (C)");
                 char userAction = UserInputs.GetUserAction();
-                switch(userAction)
+                switch(char.ToLower(userAction))
                 {
                     case 'g':
-                        Vehicle newVehicle = Helper.GetSetVehicle();
+                        Vehicle newVehicle;
+                        if (isRandomVehicle)
+                        {
+                            newVehicle = Helper.GetRandomVehicle();
+                        } else
+                        {
+                            newVehicle = Helper.GetSetVehicle();
+                        }
                         UserInputs.SetVehicleInfo(newVehicle);
                         bool success = parkingHouse.TryAddVehicleToParkHouse(newVehicle);
                         if(success)

@@ -8,8 +8,7 @@ namespace Parkering
 {
     internal class Helper
     {
-        private static Vehicle[] VehicleOptions = { new Car(GetRandomLicensePlate(), Colors.Red, false), new Bus(GetRandomLicensePlate(), Colors.Red, 0), new Motorcycle(GetRandomLicensePlate(), Colors.Red, "") };
-        private static int[] SetVehicleOptions = {1, 1, 1, 1};
+        private static int[] SetVehicleOptions = {2, 2, 2, 3};
         private static int VehicleOptionOn = -1;
         static public string ColorsToSwedish(Colors color)
         {
@@ -56,18 +55,31 @@ namespace Parkering
         static public Vehicle GetSetVehicle()
         {
             VehicleOptionOn++;
-            if(SetVehicleOptions.Length < VehicleOptionOn)
+            if(SetVehicleOptions.Length - 1 < VehicleOptionOn)
             {
                 VehicleOptionOn = 0;
             }
-            return VehicleOptions[SetVehicleOptions[VehicleOptionOn]];
+            return GetNewInstance(SetVehicleOptions[VehicleOptionOn]);
         }
         static public Vehicle GetRandomVehicle()
         {
             string randomLicensePlate = Helper.GetRandomLicensePlate();
             Random rnd = new Random();
-            int randomTypeOfCar = rnd.Next(0, 3);
-            return VehicleOptions[randomTypeOfCar];
+            int randomTypeOfCar = rnd.Next(1, 4);
+            return GetNewInstance(randomTypeOfCar);
+        }
+        static private Vehicle GetNewInstance(int option)
+        {
+            switch (option)
+            {
+                case 1:
+                    return new Car();
+                case 2:
+                    return new Bus();
+                case 3:
+                    return new Motorcycle();
+            }
+            throw new Exception("Finns inget fordon med optionen " + option);
         }
         static public string GetTimeString(TimeSpan parkedTotalTime)
         {

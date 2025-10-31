@@ -13,8 +13,6 @@ namespace Parkering
         {
             while(true)
             {
-                Console.WriteLine("Parkera ett nytt slumpmässigt fordon (G)");
-                Console.WriteLine("Checka ut ett parkerat fordon (C)");
                 char key = Console.ReadKey().KeyChar;
                 RemoveOptionFromConsole();
                 return key;
@@ -46,27 +44,9 @@ namespace Parkering
         {
             Console.WriteLine("Det kom in en bil");
             car.Color = GetColorFromUser();
+            
+            car.IsElectrical = GetYesOrNo("Är bilen en elbil");
 
-            bool isElectricalCollected = false;
-            while (!isElectricalCollected)
-            {
-                Console.Write("Är bilen en elbil (ja) eller (nej): ");
-                string answer = Console.ReadLine();
-                switch (answer.ToLower())
-                {
-                    case "ja":
-                        car.IsElectrical = true;
-                        isElectricalCollected = true;
-                        break;
-                    case "nej":
-                        car.IsElectrical = false;
-                        isElectricalCollected = true;
-                        break;
-                    default:
-                        Error(answer);
-                        break;
-                }
-            }
             
         }
         static public void SetVehicleInfo(Bus bus)
@@ -81,10 +61,17 @@ namespace Parkering
                 string input = Console.ReadLine();
                 RemoveOptionFromConsole();
                 bool success = int.TryParse(input, out amountOfSeats);
+                
                 if(success)
                 {
-                    bus.AmountOfSeats = amountOfSeats;
-                    isAmountOfSeatsCollected = true;
+                    if(amountOfSeats < 0)
+                    {
+                        Error("Bussen kan inte ha ett negativt nummer av platser");
+                    } else
+                    {
+                        bus.AmountOfSeats = amountOfSeats;
+                        isAmountOfSeatsCollected = true;
+                    }
                 } else
                 {
                     Error(input, "Är inte ett nummer");
@@ -129,6 +116,33 @@ namespace Parkering
                     break;
             }
 
+        }
+        static public bool GetYesOrNo(string Alternative)
+        {
+            string[] noOptions = { "no", "nej", "n" };
+            string[] yesOptions = { "yes", "ja", "j", "y", "" };
+            while (true)
+            {
+                
+                Console.Write(Alternative + " (ja) eller (nej): ");
+                string answer = Console.ReadLine();
+                foreach (string yesOption in yesOptions)
+                {
+                    if (yesOption == answer.ToLower())
+                    {
+                        return true;
+                    }
+                }
+                foreach (string noOption in noOptions)
+                {
+                    if (noOption == answer.ToLower())
+                    {
+                        return false;
+                    }
+                }
+                Error(answer);
+            }
+            
         }
         static private Colors GetColor(char colorChar)
         {

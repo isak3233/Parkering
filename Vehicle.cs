@@ -22,6 +22,11 @@ namespace Parkering
         public Colors Color { get; set; } 
         public float Size { get; set; }
         protected int padding = 8;
+        public Vehicle()
+        {
+            LicensePlate = Helper.GetRandomLicensePlate();
+            Color = Colors.Red;
+        }
         public Vehicle(string licensePlate, Colors color)
         {
 
@@ -41,6 +46,11 @@ namespace Parkering
     internal class Car : Vehicle
     {
         public bool IsElectrical { get; set; }
+        public Car() : base()
+        {
+            Size = 1.0f;
+            IsElectrical = false;
+        }
         public Car(string licensePlate, Colors color, bool isElectrical) : base(licensePlate, color)
         {
             Size = 1.0f;
@@ -57,6 +67,11 @@ namespace Parkering
     internal class Motorcycle : Vehicle
     {
         public string Brand { get; set; }
+        public Motorcycle() : base()
+        {
+            Size = 0.5f;
+            Brand = "";
+        }
         public Motorcycle(string licensePlate, Colors color, string brand) : base(licensePlate, color)
         {
             Size = 0.5f;
@@ -72,6 +87,11 @@ namespace Parkering
     internal class Bus : Vehicle
     {
         public int AmountOfSeats { get; set; }
+        public Bus() : base()
+        {
+            Size = 2.0f;
+            AmountOfSeats = 0;
+        }
         public Bus(string licensePlate, Colors color, int amountOfSeats) : base(licensePlate, color)
         {
             Size = 2.0f;
