@@ -8,7 +8,7 @@ namespace Parkering
 {
     internal class Helper
     {
-        private static int[] SetVehicleOptions = {2, 2, 2, 3};
+        private static int[] SetVehicleOptions = {1, 2, 3};
         private static int VehicleOptionOn = -1;
         static public string ColorsToSwedish(Colors color)
         {
@@ -79,7 +79,7 @@ namespace Parkering
                 case 3:
                     return new Motorcycle();
             }
-            throw new Exception("Finns inget fordon med optionen " + option);
+            throw new Exception("Finns inget fordon med alternativet " + option);
         }
         static public string GetTimeString(TimeSpan parkedTotalTime)
         {

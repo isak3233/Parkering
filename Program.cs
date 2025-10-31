@@ -8,7 +8,7 @@
             int amountOfParkingSpots = 15;
             float parkingHouseParkingFee = 1.5f;
             ParkingHouse parkingHouse = new ParkingHouse(amountOfParkingSpots, parkingHouseParkingFee);
-            bool isRandomVehicle = UserInputs.GetYesOrNo("Ska fordonen random genereras");
+            bool isRandomVehicle = UserInputs.GetYesOrNo("Ska fordonen slumpmässigt genereras");
             Console.Clear();
             while (true)
             {

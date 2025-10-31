@@ -66,7 +66,7 @@ namespace Parkering
                 {
                     if(amountOfSeats < 0)
                     {
-                        Error("Bussen kan inte ha ett negativt nummer av platser");
+                        Error("Bussen kan inte ha ett negativt nummer av platser", "");
                     } else
                     {
                         bus.AmountOfSeats = amountOfSeats;
