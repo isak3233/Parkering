@@ -10,6 +10,7 @@ namespace Parkering
     {
         public ParkingSpot[] ParkingSpots { get; }
         private float ParkFee { get; }
+        private Dictionary<Vehicle, DateTime> parkTimers = new Dictionary<Vehicle, DateTime>();
         public ParkingHouse(int amountOfParkings, float parkFee)
         {
             ParkingSpots = new ParkingSpot[amountOfParkings];
@@ -29,15 +30,17 @@ namespace Parkering
                     float sizeStillToAdd = vehicleToAdd.Size;
                     for(int j = 0;  j < vehicleToAdd.Size; j++)
                     {
-                        if(j + i > ParkingSpots.Length)
+                        if(j + i < ParkingSpots.Length)
                         {
                             sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
                         }
                         
                     }
+                    
                     if(sizeStillToAdd <= 0)
                     {
-                        vehicleToAdd.TimeWhenParked = DateTime.Now;
+                        
+                        parkTimers.Add(vehicleToAdd, DateTime.Now);
                         for (int j = 0; j < vehicleToAdd.Size; j++)
                         {
                             ParkingSpots[i + j].TryAddVehicle(vehicleToAdd);
@@ -47,7 +50,7 @@ namespace Parkering
                 }
                 if (ParkingSpots[i].TryAddVehicle(vehicleToAdd))
                 {
-                    vehicleToAdd.TimeWhenParked = DateTime.Now;
+                    parkTimers.Add(vehicleToAdd, DateTime.Now);
                     return true;
                 }
             }
@@ -117,7 +120,7 @@ namespace Parkering
         public (TimeSpan parkedTotalTime, double parkingFee) GetParkingFeeInfo(string licensePlate)
         {
 
-            TimeSpan parkedTotalTime = DateTime.Now - GetVehicle(licensePlate).TimeWhenParked;
+            TimeSpan parkedTotalTime = DateTime.Now - parkTimers[GetVehicle(licensePlate)];
             return (parkedTotalTime, (parkedTotalTime.TotalMinutes * ParkFee));
             
         }
@@ -127,30 +130,22 @@ namespace Parkering
             for (int i = 0; i < ParkingSpots.Length; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
-                if(parkingSpot.Vehicles.Count == 0)
+                if(parkingSpot.Vehicles.Count == 0 )
                 {
                     string indexString = $"Plats {i + 1}";
                     Console.WriteLine($"{indexString.PadRight(15)} Tom");
                 }
                 
                 foreach (Vehicle vehicle in parkingSpot.Vehicles)
-                {   
-                    if(vehiclesWritenOut.Contains(vehicle))
+                {
+                    if (vehiclesWritenOut.Contains(vehicle))
                     {
                         continue;
                     }
                     string extraSlots = $"-{(i) + vehicle.Size}";
                     string indexString = $"Plats {(i+1)}{(vehicle.Size > 1.0f  ? extraSlots : "")}";
-                    
-                    //for(int j = 0; j < vehicle.Size; j++)
-                    //{
-                    //    if (j != 0)
-                    //    {
-                    //        indexString += "-";
-                    //    }
-                    //    indexString += i + j + 1;
-                    //}
                     Console.WriteLine($"{indexString.PadRight(15)} {vehicle}");
+                    
                     vehiclesWritenOut.Add(vehicle);
 
                 }

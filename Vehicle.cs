@@ -21,7 +21,6 @@ namespace Parkering
         public string LicensePlate {  get;  }
         public Colors Color { get; set; } 
         public float Size { get; set; }
-        public DateTime TimeWhenParked { get; set; }
         protected int padding = 8;
         public Vehicle(string licensePlate, Colors color)
         {

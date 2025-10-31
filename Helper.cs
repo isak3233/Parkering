@@ -8,6 +8,9 @@ namespace Parkering
 {
     internal class Helper
     {
+        private static Vehicle[] VehicleOptions = { new Car(GetRandomLicensePlate(), Colors.Red, false), new Bus(GetRandomLicensePlate(), Colors.Red, 0), new Motorcycle(GetRandomLicensePlate(), Colors.Red, "") };
+        private static int[] SetVehicleOptions = {1, 1, 1, 1};
+        private static int VehicleOptionOn = -1;
         static public string ColorsToSwedish(Colors color)
         {
             string swedishText = "";
@@ -33,6 +36,7 @@ namespace Parkering
             }
             return swedishText;
         }
+
         static public string GetRandomLicensePlate()
         {
             Random random = new Random();
@@ -49,13 +53,21 @@ namespace Parkering
             }
             return licensePlate;
         }
+        static public Vehicle GetSetVehicle()
+        {
+            VehicleOptionOn++;
+            if(SetVehicleOptions.Length < VehicleOptionOn)
+            {
+                VehicleOptionOn = 0;
+            }
+            return VehicleOptions[SetVehicleOptions[VehicleOptionOn]];
+        }
         static public Vehicle GetRandomVehicle()
         {
             string randomLicensePlate = Helper.GetRandomLicensePlate();
-            Vehicle[] vehicleOptions = { new Car(randomLicensePlate, Colors.Red, false), new Bus(randomLicensePlate, Colors.Red, 0), new Motorcycle(randomLicensePlate, Colors.Red, "") };
             Random rnd = new Random();
             int randomTypeOfCar = rnd.Next(0, 3);
-            return vehicleOptions[randomTypeOfCar];
+            return VehicleOptions[randomTypeOfCar];
         }
         static public string GetTimeString(TimeSpan parkedTotalTime)
         {

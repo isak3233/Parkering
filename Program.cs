@@ -15,7 +15,7 @@
                 switch(userAction)
                 {
                     case 'g':
-                        Vehicle newVehicle = Helper.GetRandomVehicle();
+                        Vehicle newVehicle = Helper.GetSetVehicle();
                         UserInputs.SetVehicleInfo(newVehicle);
                         bool success = parkingHouse.TryAddVehicleToParkHouse(newVehicle);
                         if(success)
