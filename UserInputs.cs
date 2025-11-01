@@ -69,6 +69,8 @@ namespace Parkering
                         Error("Bussen kan inte ha ett negativt nummer av platser", "");
                     } else
                     {
+                        int addSize = (int)Math.Floor((double)amountOfSeats / 30);
+                        bus.Size += addSize;
                         bus.AmountOfSeats = amountOfSeats;
                         isAmountOfSeatsCollected = true;
                     }

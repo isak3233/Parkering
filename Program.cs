@@ -28,6 +28,7 @@
                             newVehicle = Helper.GetSetVehicle();
                         }
                         UserInputs.SetVehicleInfo(newVehicle);
+
                         bool success = parkingHouse.TryAddVehicleToParkHouse(newVehicle);
                         if(success)
                         {

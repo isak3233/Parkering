@@ -8,8 +8,8 @@ namespace Parkering
 {
     internal class Helper
     {
-        private static int[] SetVehicleOptions = {1, 2, 3};
-        private static int VehicleOptionOn = -1;
+        static private int[] SetVehicleOptions = {2, 2, 2};
+        static private int VehicleOptionOn = -1;
         static public string ColorsToSwedish(Colors color)
         {
             string swedishText = "";

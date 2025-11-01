@@ -33,10 +33,9 @@ namespace Parkering
                         if(j + i < ParkingSpots.Length)
                         {
                             sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
-                        }
+                        } 
                         
                     }
-                    
                     if(sizeStillToAdd <= 0)
                     {
                         
@@ -47,8 +46,7 @@ namespace Parkering
                         }
                         return true;
                     }
-                }
-                if (ParkingSpots[i].TryAddVehicle(vehicleToAdd))
+                } else if (ParkingSpots[i].TryAddVehicle(vehicleToAdd))
                 {
                     parkTimers.Add(vehicleToAdd, DateTime.Now);
                     return true;
