@@ -60,35 +60,13 @@ namespace Parkering
             {
                 ParkingSpots[i].RemoveVehicle(vehicleToRemove);
             }
-            OptimizeParking();
         }
         public void RemoveVehicle(string licensePlate)
         {
             Vehicle vehicleToRemove = GetVehicle(licensePlate);
             RemoveVehicle(vehicleToRemove);
         }
-        private void OptimizeParking()
-        {
-            for (int i = 1; i < ParkingSpots.Length; i++)
-            {
-                ParkingSpot parkingSpot = ParkingSpots[i];
-                List<Vehicle> vehicles = new (parkingSpot.Vehicles);
 
-                foreach (Vehicle vehicle in vehicles)
-                {
-                    for (int j = 0; j < i; j++)
-                    {
-                        ParkingSpot newParkingSpot = ParkingSpots[j];
-
-                        if (newParkingSpot.TryAddVehicle(vehicle))
-                        {
-                            parkingSpot.RemoveVehicle(vehicle);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         public Vehicle GetVehicle(string licensePlate)
         {
             foreach (ParkingSpot parkingSpot in ParkingSpots)

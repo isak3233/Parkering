@@ -8,7 +8,7 @@ namespace Parkering
 {
     internal class Helper
     {
-        static private int[] SetVehicleOptions = {2, 2, 2};
+        static private int[] SetVehicleOptions = {1, 2, 3};
         static private int VehicleOptionOn = -1;
         static public string ColorsToSwedish(Colors color)
         {
@@ -26,9 +26,6 @@ namespace Parkering
                     break;
                 case Colors.Yellow:
                     swedishText = "Gul";
-                    break;
-                case Colors.White:
-                    swedishText = "Vit";
                     break;
                 default:
                     break;
