@@ -20,7 +20,7 @@ namespace Parkering
             }
             ParkFee = parkFee;
         }
-        public bool TryAddVehicleToParkHouse(Vehicle vehicleToAdd)
+        public bool TryAddVehicle(Vehicle vehicleToAdd)
         {
             for(int i = 0;i < ParkingSpots.Length; i++)
             {
