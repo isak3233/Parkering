@@ -22,23 +22,38 @@ namespace Parkering
         }
         public bool TryAddVehicle(Vehicle vehicleToAdd)
         {
-            for(int i = 0;i < ParkingSpots.Length; i++)
+            // Försöker hitta bra plats åt motorcykel
+            if (vehicleToAdd is Motorcycle)
+            {
+                for (int i = 0; i < ParkingSpots.Length; i++)
+                {
+                    ParkingSpot parkingSpotForMC = ParkingSpots[i];
+                    if (parkingSpotForMC.AvailableSpace == 0.5f && ParkingSpots[i].TryAddVehicle(vehicleToAdd))
+                    {
+                        parkTimers.Add(vehicleToAdd, DateTime.Now);
+                        return true;
+                    }
+                }
+            }
+            // Hittar bra plats åt bilar, bussar och motorcykeln om motorcykeln inte hittade en bra plats
+            for (int i = 0;i < ParkingSpots.Length; i++)
             {
                 ParkingSpot parkingSpot = ParkingSpots[i];
-                if(vehicleToAdd.Size > 1.0f)
+                
+                if (vehicleToAdd.Size > 1.0f)
                 {
                     float sizeStillToAdd = vehicleToAdd.Size;
-                    for(int j = 0;  j < vehicleToAdd.Size; j++)
+                    for (int j = 0; j < vehicleToAdd.Size; j++)
                     {
-                        if(j + i < ParkingSpots.Length)
+                        if (j + i < ParkingSpots.Length)
                         {
                             sizeStillToAdd -= ParkingSpots[i + j].AvailableSpace;
-                        } 
-                        
+                        }
+
                     }
-                    if(sizeStillToAdd <= 0)
+                    if (sizeStillToAdd <= 0)
                     {
-                        
+
                         parkTimers.Add(vehicleToAdd, DateTime.Now);
                         for (int j = 0; j < vehicleToAdd.Size; j++)
                         {
